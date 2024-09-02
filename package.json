@@ -1,0 +1,43 @@
+{
+  "name": "user-crud-service",
+  "version": "1.0.0",
+  "description": "A CRUD microservice for user management using AWS Lambda, API Gateway, and DynamoDB.",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "serverless offline",
+    "build": "tsc",
+    "deploy": "serverless deploy",
+    "test": "jest",
+    "lint": "eslint . --ext .ts",
+    "prebuild": "rimraf dist"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.814.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.76",
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^16.0.0",
+    "typescript": "^4.4.4",
+    "ts-node": "^10.2.1",
+    "serverless": "^2.62.0",
+    "serverless-offline": "^8.5.0",
+    "jest": "^27.2.5",
+    "@types/jest": "^27.0.2",
+    "eslint": "^7.32.0",
+    "@typescript-eslint/parser": "^4.31.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "rimraf": "^3.0.2"
+  },
+  "keywords": [
+    "serverless",
+    "aws",
+    "lambda",
+    "typescript",
+    "dynamodb",
+    "api-gateway"
+  ],
+  "author": "KG",
+  "license": "MIT"
+}

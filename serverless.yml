@@ -1,0 +1,65 @@
+service: user-crud-service
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    USERS_TABLE: Users
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.USERS_TABLE}
+
+functions:
+  createUser:
+    handler: src/handlers/createUser.createUser
+    events:
+      - http:
+          path: users
+          method: post
+
+  getUser:
+    handler: src/handlers/getUser.getUser
+    events:
+      - http:
+          path: users/{UserID}
+          method: get
+
+  updateUser:
+    handler: src/handlers/updateUser.updateUser
+    events:
+      - http:
+          path: users/{UserID}
+          method: put
+
+  deleteUser:
+    handler: src/handlers/deleteUser.deleteUser
+    events:
+      - http:
+          path: users/{UserID}
+          method: delete
+
+  listUsers:
+    handler: src/handlers/listUsers.listUsers
+    events:
+      - http:
+          path: users
+          method: get
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.USERS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: UserID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: UserID
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
